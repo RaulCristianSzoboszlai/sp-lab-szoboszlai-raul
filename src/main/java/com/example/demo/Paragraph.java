@@ -2,6 +2,7 @@ package com.example.demo;
 
 public class Paragraph implements Element {
     private String text;
+    private AlignStrategy textAlignment;
 
     public Paragraph(String text) {
         this.text = text;
@@ -13,6 +14,10 @@ public class Paragraph implements Element {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setAlignStrategy(AlignStrategy textAlignment) {
+        this.textAlignment = textAlignment;
     }
 
     public void add(Element e) {
@@ -27,7 +32,12 @@ public class Paragraph implements Element {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void print() {
-        System.out.println("Paragraph: " + this.text);
+        if (textAlignment != null) {
+            textAlignment.render(this, new Context());
+        } else {
+            System.out.println("Paragraph: " + this.text);
+        }
     }
 }
