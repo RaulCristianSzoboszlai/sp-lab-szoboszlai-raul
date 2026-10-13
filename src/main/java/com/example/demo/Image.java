@@ -35,8 +35,9 @@ public class Image implements Element {
         throw new UnsupportedOperationException();
     }
 
-    public void print() {
-        System.out.println("Image with name: " + this.url);
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
 }

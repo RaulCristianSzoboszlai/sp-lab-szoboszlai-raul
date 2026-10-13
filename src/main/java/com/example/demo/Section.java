@@ -23,10 +23,12 @@ public class Section implements Element {
         return children.get(index);
     }
 
-    public void print() {
-        System.out.println(this.title);
-        for (Element e : children) {
-            e.print();
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+
+        for (Element child : children) {
+            child.accept(visitor);
         }
     }
 

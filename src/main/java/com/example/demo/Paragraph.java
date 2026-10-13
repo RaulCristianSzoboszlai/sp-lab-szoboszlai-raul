@@ -33,11 +33,7 @@ public class Paragraph implements Element {
     }
 
     @Override
-    public void print() {
-        if (textAlignment != null) {
-            textAlignment.render(this, new Context());
-        } else {
-            System.out.println("Paragraph: " + this.text);
-        }
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
