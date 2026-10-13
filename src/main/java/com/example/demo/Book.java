@@ -18,16 +18,15 @@ public class Book extends Section {
         super.add(e);
     }
 
-    public void print() {
-        System.out.println("Book: " + super.getTitle() + "\n");
-        System.out.println("Authors:");
-        for (Author author : authors) {
-            author.print();
-        }
-
-        for (Element e : super.children) {
-            e.print();
-        }
+    public List<Author> getAuthors() {
+        return this.authors;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+
+        for (Element child : super.children) {
+            child.accept(visitor);
+        }
+    }
 }

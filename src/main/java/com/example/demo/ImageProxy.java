@@ -8,7 +8,7 @@ public class ImageProxy implements Element {
         this.url = url;
     }
 
-    private Image loadImage() {
+    public Image loadImage() {
         if (realImage == null) {
             realImage = new Image(url);
         }
@@ -16,8 +16,8 @@ public class ImageProxy implements Element {
     }
 
     @Override
-    public void print() {
-        loadImage().print();
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override
