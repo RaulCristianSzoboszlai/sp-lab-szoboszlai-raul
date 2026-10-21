@@ -1,7 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.difexamples.ClientComponent;
+import com.example.demo.difexamples.SingletonComponent;
+import com.example.demo.difexamples.TransientComponent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -9,22 +13,30 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		// SpringApplication.run(DemoApplication.class, args);
 
-        Section cap1 = new Section("Capitolul 1");
-        Paragraph p1 = new Paragraph("Paragraph 1");
-        cap1.add(p1);
-        Paragraph p2 = new Paragraph("Paragraph 2");
-        cap1.add(p2);
-        Paragraph p3 = new Paragraph("Paragraph 3");
-        cap1.add(p3);
-        Paragraph p4 = new Paragraph("Paragraph 4");
-        cap1.add(p4);
-        cap1.add(new ImageProxy("ImageOne"));
-        cap1.add(new Image("ImageTwo"));
-        cap1.add(new Paragraph("Some text"));
-        cap1.add(new Table("Table 1"));
-        BookStatistics stats = new BookStatistics();
-        cap1.accept(stats);
-        stats.printStatistics();
+        // Preia controlul asupra contextului de injecție de dependențe
+        ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+
+        // Cere o instanță Transient. Spring creează una nouă de fiecare dată.
+        TransientComponent transientBean = context.getBean(TransientComponent.class);
+        transientBean.operation();
+
+        transientBean = context.getBean(TransientComponent.class);
+        transientBean.operation();
+
+        // Cere o instanță Singleton. Spring va returna mereu aceeași instanță unică.
+        SingletonComponent singletonBean = context.getBean(SingletonComponent.class);
+        singletonBean.operation();
+
+        singletonBean = context.getBean(SingletonComponent.class);
+        singletonBean.operation();
+
+        // Cere componenta Client care le folosește pe amândouă
+        ClientComponent c = context.getBean(ClientComponent.class);
+        c.operation();
+
+        // Poți cere instanța și după numele ei (camelCase-ul numelui clasei)
+        c = (ClientComponent) context.getBean("clientComponent");
+        c.operation();
 	}
 
 }
