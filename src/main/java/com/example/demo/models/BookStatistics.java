@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 public class BookStatistics implements Visitor {
     private int images = 0;

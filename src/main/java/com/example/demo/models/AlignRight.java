@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.example.demo.models;
 
-public class AlignCenter implements AlignStrategy {
+public class AlignRight implements AlignStrategy {
     @Override
     public void render(Paragraph p, Context context) {
         String text = p.getText();
-        int padding = (context.getWidth() - text.length()) / 2;
+        int padding = context.getWidth() - text.length();
 
         if (padding > 0) {
             System.out.println(" ".repeat(padding) + text);

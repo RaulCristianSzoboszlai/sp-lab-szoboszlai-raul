@@ -1,18 +1,11 @@
-package com.example.demo;
+package com.example.demo.models;
 
-public class ImageProxy implements Element {
-    private String url;
-    private Image realImage;
+import jakarta.persistence.Entity;
 
-    public ImageProxy(String url) {
-        this.url = url;
-    }
+@Entity
+public class TableOfContents extends BaseElement {
 
-    public Image loadImage() {
-        if (realImage == null) {
-            realImage = new Image(url);
-        }
-        return realImage;
+    public TableOfContents() {
     }
 
     @Override

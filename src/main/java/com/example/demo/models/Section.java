@@ -1,18 +1,27 @@
-package com.example.demo;
+package com.example.demo.models;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section implements Element {
+@Entity
+public class Section extends BaseElement {
     private String title;
-    protected List<Element> children = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<BaseElement> children = new ArrayList<>();
+
+    public Section() {
+    }
 
     public Section(String title) {
         this.title = title;
     }
 
     public void add(Element e) {
-        children.add(e);
+        if (e instanceof BaseElement) {
+            children.add((BaseElement) e);
+        }
     }
 
     public void remove(Element e) {
@@ -27,7 +36,7 @@ public class Section implements Element {
     public void accept(Visitor visitor) {
         visitor.visit(this);
 
-        for (Element child : children) {
+        for (BaseElement child : children) {
             child.accept(visitor);
         }
     }
