@@ -1,8 +1,13 @@
-package com.example.demo;
+package com.example.demo.models;
 
-public class Paragraph implements Element {
+import jakarta.persistence.Entity;
+
+@Entity
+public class Paragraph extends BaseElement {
     private String text;
-    private AlignStrategy textAlignment;
+
+    public Paragraph() {
+    }
 
     public Paragraph(String text) {
         this.text = text;
@@ -12,28 +17,23 @@ public class Paragraph implements Element {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
-    public void setAlignStrategy(AlignStrategy textAlignment) {
-        this.textAlignment = textAlignment;
-    }
-
+    @Override
     public void add(Element e) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void remove(Element e) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Element get(int index) {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
     }
 }

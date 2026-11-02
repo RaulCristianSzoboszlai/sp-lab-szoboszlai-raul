@@ -1,8 +1,20 @@
-package com.example.demo;
+package com.example.demo.models;
 
-public class TableOfContents implements Element {
+import jakarta.persistence.Entity;
 
-    public TableOfContents() {
+@Entity
+public class Image extends BaseElement {
+    private String url;
+
+    public Image() {
+    }
+
+    public Image(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override

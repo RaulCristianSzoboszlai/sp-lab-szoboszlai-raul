@@ -1,7 +1,13 @@
-package com.example.demo;
+package com.example.demo.models;
 
-public class Table implements Element {
+import jakarta.persistence.Entity;
+
+@Entity
+public class Table extends BaseElement {
     private String title;
+
+    public Table() {
+    }
 
     public Table(String title) {
         this.title = title;
@@ -9,10 +15,6 @@ public class Table implements Element {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Override

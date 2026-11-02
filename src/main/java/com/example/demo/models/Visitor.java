@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 public interface Visitor {
     void visit(Book book);

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 public class GenerateToC implements Visitor {
     private TableOfContents tableOfContents = new TableOfContents();

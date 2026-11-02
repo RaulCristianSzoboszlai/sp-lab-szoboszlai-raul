@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 public interface Element {
     void accept(Visitor visitor);
