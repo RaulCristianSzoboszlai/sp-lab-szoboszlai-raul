@@ -17,6 +17,10 @@ public class Image extends BaseElement {
         return url;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);

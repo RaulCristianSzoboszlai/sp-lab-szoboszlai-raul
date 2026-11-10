@@ -17,6 +17,10 @@ public class Paragraph extends BaseElement {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
