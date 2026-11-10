@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 
@@ -9,6 +10,7 @@ public class ImageProxy extends BaseElement {
     private String url;
 
     @Transient // Nu salvează instanța încărcată în baza de date
+    @JsonIgnore
     private Image realImage;
 
     // Constructor gol cerut de JPA
