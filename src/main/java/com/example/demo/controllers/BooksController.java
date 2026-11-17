@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.commands.*;
 import com.example.demo.models.Author;
 import com.example.demo.models.Book;
+import com.example.demo.observer.AllBooksSubject;
 import com.example.demo.persistence.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,14 @@ import java.util.Map;
 public class BooksController {
 
     private final CommandContext commandContext;
+    private final AllBooksSubject allBooksSubject;
 
     @Autowired
     public BooksController(CrudRepository<Book, Integer> booksRepository,
-                           CrudRepository<Author, Integer> authorsRepository) {
+                           CrudRepository<Author, Integer> authorsRepository,
+                           AllBooksSubject allBooksSubject) {
         this.commandContext = new CommandContext(booksRepository, authorsRepository);
+        this.allBooksSubject = allBooksSubject;
     }
 
     @GetMapping
@@ -40,6 +44,8 @@ public class BooksController {
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book savedBook = new CreateBookCommand(commandContext, book).execute();
+        // change the state of the subject -> all observers (SSE clients) are notified about the new book
+        allBooksSubject.add(savedBook);
         return ResponseEntity.created(URI.create("/books/" + savedBook.getId())).body(savedBook);
     }
 
